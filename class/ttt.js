@@ -17,19 +17,40 @@ class TTT {
     Screen.initialize(3, 3);
     Screen.setGridlines(true);
 
-    // Replace this with real commands
-    Screen.addCommand('t', 'test command (remove)', TTT.testCommand);
     Screen.addCommand('up', 'move cursor up', () => this.cursor.up());
     Screen.addCommand('down', 'move cursor down', () => this.cursor.down());
     Screen.addCommand('left', 'move cursor left', () => this.cursor.left());
     Screen.addCommand('right', 'move cursor right', () => this.cursor.right());
+    Screen.addCommand('p', 'place move', this.placeMove);
+
 
     Screen.render();
   }
 
-  // Remove this
-  static testCommand() {
-    console.log("TEST COMMAND");
+  switchPlayer = () => {
+    if (this.playerTurn === 'X') {
+      this.playerTurn = 'O';
+    } else {
+      this.playerTurn = 'X';
+    }
+  }
+
+  placeMove = () => {
+    if (this.grid[this.cursor.row][this.cursor.col] === ' ') {
+      Screen.setGrid(this.cursor.row, this.cursor.col, this.playerTurn);
+      this.grid[this.cursor.row][this.cursor.col] = this.playerTurn;
+
+      let win = TTT.checkWin(this.grid);
+      this.switchPlayer();
+      if (win) {
+        TTT.endGame(win);
+      }
+      Screen.setMessage(`It is ${this.playerTurn}'s turn`);
+    } else {
+      Screen.setMessage("Choose an open spot");
+    }
+
+    Screen.render();
   }
 
   static checkWin(grid) {
