@@ -19,6 +19,10 @@ class TTT {
 
     // Replace this with real commands
     Screen.addCommand('t', 'test command (remove)', TTT.testCommand);
+    Screen.addCommand('up', 'move cursor up', () => this.cursor.up());
+    Screen.addCommand('down', 'move cursor down', () => this.cursor.down());
+    Screen.addCommand('left', 'move cursor left', () => this.cursor.left());
+    Screen.addCommand('right', 'move cursor right', () => this.cursor.right());
 
     Screen.render();
   }
