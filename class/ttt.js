@@ -58,7 +58,7 @@ class TTT {
     const horizontalWinX = ['X','X','X'];
     const horizontalWinO = ['O','O','O'];
 
-   
+   //Horizontal Win
 
     for (let i = 0; i < grid.length; i++) {
       if (grid[i].toString() == horizontalWinX.toString()) {
@@ -75,6 +75,8 @@ class TTT {
       };
     };
 
+    //Vertical Win
+
     if(grid[0][0] == 'X' && grid[1][1] == 'X' && grid[2][2] == 'X') {
       return 'X';
     };
@@ -83,6 +85,8 @@ class TTT {
       return 'O';
     };
 
+    //Diagonal Wins
+
     if (grid[0][2] == 'X' && grid[1][1] == 'X' && grid[2][0] == 'X') {
       return 'X';
     }
@@ -90,6 +94,8 @@ class TTT {
     if (grid[0][2] == 'O' && grid[1][1] == 'O' && grid[2][0] == 'O') {
       return 'O';
     }
+
+    // Blank Spaces
 
     for (let i = 0; i < grid.length; i++) {
       if(grid[0].includes(' ')) {
@@ -100,6 +106,9 @@ class TTT {
     return 'T';
 
   }
+
+
+
 
   static endGame(winner) {
     if (winner === 'O' || winner === 'X') {
