@@ -53,59 +53,48 @@ class TTT {
     Screen.render();
   }
 
-  static checkWin(grid) {
+  TTT = {}
 
-    const horizontalWinX = ['X','X','X'];
-    const horizontalWinO = ['O','O','O'];
-
-   //Horizontal Win
-
-    for (let i = 0; i < grid.length; i++) {
-      if (grid[i].toString() == horizontalWinX.toString()) {
-        return 'X';
-      };
-      if (grid[i].toString() == horizontalWinO.toString()) {
-        return 'O';
-      };
-      if (grid[0][i] == 'X' && grid[1][i] == 'X' && grid[2][i] == 'X') {
-        return 'X';
-      };
-      if (grid[0][i] == 'O' && grid[1][i] == 'O' && grid[2][i] == 'O') {
-        return 'O';
-      };
-    };
-
-    //Vertical Win
-
-    if(grid[0][0] == 'X' && grid[1][1] == 'X' && grid[2][2] == 'X') {
-      return 'X';
-    };
-
-    if (grid[0][0] == 'O' && grid[1][1] == 'O' && grid[2][2] == 'O') {
-      return 'O';
-    };
-
-    //Diagonal Wins
-
-    if (grid[0][2] == 'X' && grid[1][1] == 'X' && grid[2][0] == 'X') {
-      return 'X';
-    }
-
-    if (grid[0][2] == 'O' && grid[1][1] == 'O' && grid[2][0] == 'O') {
-      return 'O';
-    }
-
-    // Blank Spaces
-
-    for (let i = 0; i < grid.length; i++) {
-      if(grid[0].includes(' ')) {
-        return false;
+static checkWin(grid) {
+    // Check rows
+    for (let i = 0; i < 3; i++) {
+      if (grid[i][0] !== ' ' && grid[i][0] === grid[i][1] && grid[i][1] === grid[i][2]) {
+        return grid[i][0];
       }
     }
 
-    return 'T';
+    // Check columns
+    for (let i = 0; i < 3; i++) {
+      if (grid[0][i] !== ' ' && grid[0][i] === grid[1][i] && grid[1][i] === grid[2][i]) {
+        return grid[0][i];
+      }
+    }
 
+    // Check diagonals
+    if (grid[0][0] !== ' ' && grid[0][0] === grid[1][1] && grid[1][1] === grid[2][2]) {
+      return grid[0][0];
+    }
+    if (grid[0][2] !== ' ' && grid[0][2] === grid[1][1] && grid[1][1] === grid[2][0]) {
+      return grid[0][2];
+    }
+
+    // Check for tie
+    let isTie = true;
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (grid[i][j] === ' ') {
+          isTie = false;
+        }
+      }
+    }
+    if (isTie) {
+      return 'T';
+    }
+
+    // No winner yet
+    return false;
   }
+
 
 
 
